@@ -2,14 +2,20 @@ import React, { useState } from 'react'
 import Input from '../item/input'
 import store from '@/redux/store'
 import Button from '../item/button'
+import { useRouter } from 'next/navigation'
+import { setUpdate } from '@/redux/reducer/UpdateReduce'
 const Form = () => {
     const [currentTheme, setCurrentTheme] = useState<boolean>(store.getState().theme)
+    const [currentUpdate, setCurrentUpdate] = useState<number>(store.getState().update)
 
     const update = () => {
         store.subscribe(() => setCurrentTheme(store.getState().theme))
+        store.subscribe(() => setCurrentUpdate(store.getState().update))
     }
 
     update()
+
+    const router = useRouter()
 
     const [username, setUsername] = useState<string>("")
     const [password, setPassword] = useState<string>("")
@@ -17,8 +23,26 @@ const Form = () => {
 
     const body = { username, password }
 
-    const login = () => {
-        console.log(body)
+    const login = async () => {
+        await fetch(process.env.SERVER_URL + "login", {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify(body)
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.success) {
+                    setUsername("")
+                    setPassword("")
+                    localStorage.token = "Bearer " + data.data.token
+                    store.dispatch(setUpdate(1))
+                } else {
+                    console.log(data.message)
+                }
+            })
+        console.log(currentUpdate)
     }
 
     return (

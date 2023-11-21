@@ -1,25 +1,29 @@
 'use client'
-import Content from '@/component/admin/content'
-import Header from '@/component/admin/header'
-import Narbar from '@/component/admin/narbar'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Form from '@/component/element/form'
-
+import store from '@/redux/store'
 const Admin = () => {
-
-    const [isLogin, setIsLogin] = useState<boolean>(false)
 
     const router = useRouter()
 
+    const [currentUser, setCurrentUser] = useState<any>(store.getState().user)
+
+    const update = () => {
+        store.subscribe(() => setCurrentUser(store.getState().user))
+    }
+
+    update()
+
     useEffect(() => {
-        if (isLogin) {
+        if (currentUser.position == "admin") {
             router.push("/admin/dashboard")
         }
-    }, [isLogin])
+    }, [currentUser])
+
     return (
         <>
-            <div className="main center login">
+            <div className=" main heightwidthHeader center login">
                 <Form />
             </div>
         </>

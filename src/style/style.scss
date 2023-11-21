@@ -51,8 +51,15 @@ svg {
 }
 
 .main {
-    height: 100vh;
     width: 100%;
+}
+
+.height {
+    height: 100vh;
+}
+
+.heightwidthHeader {
+    height: calc(100vh -50px);
 }
 
 .center {
