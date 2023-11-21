@@ -4,6 +4,7 @@ import Header from '@/component/admin/header'
 import Narbar from '@/component/admin/narbar'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Form from '@/component/element/form'
 
 const Admin = () => {
 
@@ -19,7 +20,7 @@ const Admin = () => {
     return (
         <>
             <div className="main center login">
-                LogIn
+                <Form />
             </div>
         </>
     )
