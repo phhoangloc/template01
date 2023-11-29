@@ -38,6 +38,7 @@ const Form = () => {
                     setPassword("")
                     localStorage.token = "Bearer " + data.data.token
                     store.dispatch(setUpdate(1))
+                    router.push("/admin/dashboard")
                 } else {
                     console.log(data.message)
                 }

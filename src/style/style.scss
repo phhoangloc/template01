@@ -7,6 +7,8 @@
 
 }
 
+@import "./grid.scss";
+
 * {
     margin: 0;
 }
@@ -67,4 +69,25 @@ svg {
     flex-direction: column;
     justify-content: center;
     text-align: center;
+}
+
+.link {
+    display: flex;
+    width: 100%;
+    max-width: 575px;
+    margin: 10px auto 0;
+
+    h2 {
+        width: 100%;
+        aspect-ratio: 1/0.5;
+        box-shadow: 0px 0px 2px;
+        margin: 5px;
+        border-radius: 5px;
+        transition: all 0.25s;
+    }
+
+    h2:hover {
+        background-color: var(--blue35--);
+        box-shadow: 0px 0px 0px;
+    }
 }

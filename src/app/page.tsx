@@ -12,9 +12,12 @@ export default function Home() {
 
   update()
   return (
-    <div className={`height center ${currentTheme ? "light" : "dark"}`}>
+    <div className={`main height center ${currentTheme ? "light" : "dark"}`}>
       <h1>Welcomet to My Template</h1>
-      <Link href="/home" >Home</Link>
+      <div className="link">
+        <h2 className='center'><Link href="/home" >Home</Link></h2>
+        <h2 className='center'><Link href="/admin" >Admin</Link></h2>
+      </div>
     </div>
   )
 }

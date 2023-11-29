@@ -50,11 +50,7 @@ const Narbar = ({ pages }: Props) => {
                 menuLists.map((item, index) =>
                     <Link href={item.url} key={index} >
                         <div
-                            className={`
-                                icon 
-                                ${pages === menuLists[index].name ? (currentTheme ? "white" : "black") : ""} 
-                                ${hover ? (currentTheme ? "white" : "black") : ""}
-                                `}
+                            className={`icon ${pages === menuLists[index].name ? (currentTheme ? "white" : "black") : ""} ${hover ? (currentTheme ? "white" : "black") : ""}`}
                             onMouseEnter={() => setHoover(true)}
                             onMouseLeave={() => setHoover(false)}>
                             {item.icon} <p>{item.name}</p>

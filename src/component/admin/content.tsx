@@ -1,21 +1,23 @@
 import React, { Children } from 'react'
 import Dashboard from './dashboard'
-
+import Book from './book'
+import Form from '../element/form'
+import Blog from './blog'
+import User from './user'
 type Props = {
     pages?: string
 }
 
 const Content = ({ pages }: Props) => {
-
     switch (pages) {
         case "dashboard":
             return <Dashboard />
         case "book":
-            return pages
+            return <Book />
         case "blog":
-            return pages
+            return <Blog />
         case "user":
-            return pages
+            return <User />
         default:
             return "Not Found"
     }

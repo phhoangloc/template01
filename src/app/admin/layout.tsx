@@ -3,7 +3,6 @@ import '../../style/admin.css'
 import Header from '@/component/admin/header'
 export const metadata: Metadata = {
     title: 'Lockheart | admin',
-
 }
 
 
