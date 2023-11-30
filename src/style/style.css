@@ -6,6 +6,11 @@
   --blue0--: #000000;
 }
 
+.xs0 {
+  width: 0%;
+  overflow: hidden;
+}
+
 .xs6 {
   width: calc(50% - 20px);
 }
@@ -241,10 +246,12 @@ svg {
 
 .white {
   background-color: var(--blue100--);
+  color: var(--blue5--);
 }
 
 .black {
   background-color: var(--blue0--);
+  color: var(--blue95--);
 }
 
 .light_plus5 {
@@ -260,7 +267,7 @@ svg {
 }
 
 .height {
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .heightwidthHeader {
@@ -272,6 +279,10 @@ svg {
   flex-direction: column;
   justify-content: center;
   text-align: center;
+}
+
+.textJustify {
+  text-align: justify;
 }
 
 .link {
@@ -293,4 +304,128 @@ svg {
 .link h2:hover {
   background-color: var(--blue35--);
   box-shadow: 0px 0px 0px;
+}
+
+.input {
+  width: 100%;
+  height: 50px;
+  position: relative;
+  margin-top: 25px;
+}
+
+.input .title {
+  position: absolute;
+  top: 18px;
+  left: 10px;
+  font-size: 1rem;
+  transition: all 0.25s;
+}
+
+.input .title_focus {
+  top: -15px;
+  opacity: 0.5;
+}
+
+.input input,
+.input textarea {
+  width: 100%;
+  height: 40px;
+  margin: 10px 0 0;
+  border: none;
+  background: none;
+  padding: 0 10px;
+  transition: all 0.25s;
+  font-size: 1rem;
+  color: inherit;
+  font-family: '__Roboto_Mono_829659', '__Roboto_Mono_Fallback_829659';
+  box-shadow: 0px 0px 1px #888;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.input input:focus {
+  outline: none;
+  border-bottom: 1px solid var(--blue35--);
+  box-shadow: none;
+}
+
+.input textarea:focus {
+  outline: none;
+  border: 2px solid var(--blue35--);
+}
+
+.input svg {
+  position: absolute;
+  right: 0;
+  bottom: 5px;
+  width: 30px;
+  height: 30px;
+  box-sizing: border-box;
+  padding: 2.5px;
+  cursor: inherit;
+}
+
+.upload_button {
+  width: max-content;
+}
+
+.textarea {
+  height: max-content;
+}
+
+.textarea textarea {
+  height: 300px;
+}
+
+button {
+  height: 40px;
+  width: 100px;
+  border: none;
+  box-shadow: 0px 0px 1px #888;
+  margin-top: 25px;
+  cursor: pointer;
+  background-color: var(--blue50--);
+  color: white;
+}
+
+button:hover {
+  box-shadow: 0px 0px 5px #888;
+  background-color: var(--blue35--);
+}
+
+button:active {
+  box-shadow: none;
+}
+
+.card {
+  aspect-ratio: 2/1;
+  box-shadow: 0px 0px 1px #888;
+  margin: 10px auto;
+  border-radius: 10px;
+}
+
+.card .general_card {
+  cursor: pointer;
+}
+
+.card .general_card:hover {
+  color: var(--blue50--);
+}
+
+.form {
+  width: 90%;
+  max-width: 375px;
+  margin: auto;
+  box-shadow: 0px 0px 2px #888;
+  padding: 50px;
+  border-radius: 10px;
+  transition: all 0.5s;
+}
+
+.form h1 {
+  margin-bottom: 25px;
+}
+
+.form_focus {
+  box-shadow: 0px 0px 5px #888;
 }

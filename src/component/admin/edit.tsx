@@ -88,6 +88,21 @@ const Edit = ({ pages, currentslug }: Props) => {
             }
         }
 
+        const uploadCover = async () => {
+
+            const formData = new FormData();
+            formData.append("file", imgFile);
+
+            await fetch(process.env.SERVER_URL + "user/avata", {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': localStorage.token
+                },
+                method: 'POST',
+                body: formData,
+            })
+        }
+
         const updatebook = async (id: string) => {
             if (id) {
                 await fetch(process.env.SERVER_URL + "admin/books/" + id, {
@@ -128,8 +143,10 @@ const Edit = ({ pages, currentslug }: Props) => {
                             imgPre ?
                                 <Image src={imgPre} width={100} height={100} alt="hello" /> :
                                 book && book.img ?
-                                    <Image src={process.env.SERVER_URL + book.img} width={100} height={100} alt='image' /> :
-                                    <Image src={process.env.SERVER_URL + "img/bookcover/bookcoverDefault.jpeg"} width={100} height={100} alt='image' />
+                                    <Image src={process.env.SERVER_URL + book.img} width={100} height={100} alt='image' priority={true}
+                                    /> :
+                                    <Image src={process.env.SERVER_URL + "img/bookcover/bookcoverDefault.jpeg"} width={100} height={100} alt='image' priority={true}
+                                    />
                         }
                     </div>
                     <p>{img && img} <span onClick={() => { setImgPre(null); setImg(null); setImgFile(null) }}>{img && "x"}</span></p>
@@ -147,6 +164,7 @@ const Edit = ({ pages, currentslug }: Props) => {
                 <Texterea value={slogan} name="Slogan" onChange={(e) => setSlogan(e.target.value)} />
                 {book && book._id ? <p>createDate:{book && book.createDate}</p> : null}
                 <Button name={book && book._id ? "save" : "create"} func={() => updatebook(book && book._id)} />
+                <Button name={"try"} func={() => uploadCover()} />
             </div>
         )
     }

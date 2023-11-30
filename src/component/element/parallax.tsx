@@ -46,6 +46,7 @@ const Parallax = ({ data }: parallaxType) => {
                     data && data.length ?
                         data.map((item, index) =>
                             <ParallaxCard
+                                slug={item.slug}
                                 key={index}
                                 genre={item.genre}
                                 name={item.name || item.title}

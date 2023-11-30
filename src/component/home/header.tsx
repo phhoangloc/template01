@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -10,10 +10,12 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { setUpdate } from '@/redux/reducer/UpdateReduce';
 import MenuIcon from '@mui/icons-material/Menu';
+import { setMenu } from '@/redux/reducer/MenuReducer';
 const Header = () => {
     const router = useRouter()
     const [currentTheme, setCurrentTheme] = useState<boolean>(store.getState().theme)
     const [currentUser, setCurrentUser] = useState<any>(store.getState().user)
+    const [currentMenu, setCurrentMenu] = useState<any>(store.getState().menu)
     const [currentUpdate, setCurrentUpdate] = useState<number>(store.getState().update)
 
     const [modalOpen, setModalOpen] = useState(false)
@@ -21,23 +23,27 @@ const Header = () => {
     const update = () => {
         store.subscribe(() => setCurrentTheme(store.getState().theme))
         store.subscribe(() => setCurrentUser(store.getState().user))
+        store.subscribe(() => setCurrentMenu(store.getState().menu))
         store.subscribe(() => setCurrentUpdate(store.getState().update))
     }
 
-    update()
+    useEffect(() => {
+        update()
+    }, [])
 
+    const [hover, setHover] = useState<boolean>(false)
     const logout = () => {
-        router.push('/admin');
+        router.push('/home');
         setModalOpen(false);
         store.dispatch(setUpdate(1));
         localStorage.clear()
     }
 
     return (
-        <div className='header'>
-            <div className="box">
+        <div className={`header `}>
+            <div className={`box ${hover ? (currentTheme ? "boxHover light" : "boxHover dark") : ""}`} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
                 <div className="icons left">
-                    <MenuIcon />
+                    <MenuIcon onClick={() => store.dispatch(setMenu(true))} />
                 </div>
                 <div className="title"><h1 onClick={() => router.push("/home")}>Lockheart</h1></div>
 
@@ -52,7 +58,7 @@ const Header = () => {
                             onClick={() => setModalOpen(!modalOpen)}
                         />
                         : <PersonIcon onClick={() => setModalOpen(!modalOpen)} />}
-                    <div className={`modal ${modalOpen ? "open" : ""}`}>
+                    <div className={`modal ${modalOpen ? "open" : ""} ${currentTheme ? "white" : "black"}`}>
                         {Object.keys(currentUser).length ?
                             <>
                                 <p onClick={() => logout()}>Log Out</p>

@@ -12,12 +12,14 @@ const Provider = ({ children }: Props) => {
 
     const [currentTheme, setCurrentTheme] = useState<boolean>(store.getState().theme)
     const [currentUser, setCurrentUser] = useState<{}>(store.getState().user)
+    const [currentMenu, setCurrentMenu] = useState<{}>(store.getState().menu)
     const [currentUpdate, setCurrentUpdate] = useState<number>(store.getState().update)
     const [currentLoading, setCurrentLoading] = useState<boolean>(store.getState().loading)
 
     const update = () => {
         store.subscribe(() => setCurrentTheme(store.getState().theme))
         store.subscribe(() => setCurrentUser(store.getState().user))
+        store.subscribe(() => setCurrentMenu(store.getState().menu))
         store.subscribe(() => setCurrentUpdate(store.getState().update))
         store.subscribe(() => setCurrentLoading(store.getState().loading))
     }

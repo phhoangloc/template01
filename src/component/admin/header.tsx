@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
@@ -23,7 +23,10 @@ const Header = () => {
         store.subscribe(() => setCurrentUpdate(store.getState().update))
     }
 
-    update()
+
+    useEffect(() => {
+        update()
+    })
 
     const logout = () => {
         router.push('/admin');
@@ -45,6 +48,7 @@ const Header = () => {
                             width={50}
                             height={50}
                             onClick={() => setModalOpen(!modalOpen)}
+                            priority={true}
                         />
                         : <PersonIcon />}
                     <div className={`modal ${modalOpen ? "open" : ""}`}>

@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react'
 import Input from '../item/input'
 import store from '@/redux/store'
@@ -6,10 +7,12 @@ import { useRouter } from 'next/navigation'
 import { setUpdate } from '@/redux/reducer/UpdateReduce'
 const Form = () => {
     const [currentTheme, setCurrentTheme] = useState<boolean>(store.getState().theme)
+    const [currentUser, setCurrentUser] = useState<any>(store.getState().user)
     const [currentUpdate, setCurrentUpdate] = useState<number>(store.getState().update)
 
     const update = () => {
         store.subscribe(() => setCurrentTheme(store.getState().theme))
+        store.subscribe(() => setCurrentUser(store.getState().user))
         store.subscribe(() => setCurrentUpdate(store.getState().update))
     }
 
@@ -38,7 +41,7 @@ const Form = () => {
                     setPassword("")
                     localStorage.token = "Bearer " + data.data.token
                     store.dispatch(setUpdate(1))
-                    router.push("/admin/dashboard")
+                    currentUser.position === "admin" ? router.push("/admin/dashboard") : router.push("/home")
                 } else {
                     console.log(data.message)
                 }

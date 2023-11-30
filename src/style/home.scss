@@ -9,134 +9,255 @@
 
 }
 
-.header {
-    height: 50px;
-    position: fixed;
-    top: 0;
-    width: 100%;
+.home {
+    position: relative;
 
-    .box {
-        width: 100%;
-        max-width: 1600px;
-        margin: auto;
-        height: 100%;
+    .menu {
+        position: fixed;
+        top: 0;
+        left: auto;
+        right: 0;
+        width: 0;
+        height: 100vh;
+        overflow: hidden;
+        transition: all 0.5s;
+        z-index: 10;
         display: flex;
-        position: relative;
 
-        .title {
-            margin: auto 5px auto 0px;
-            width: 100%;
+        svg {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: var(--blue35--);
 
-            h1 {
-                cursor: pointer;
-            }
         }
 
-        .icons {
-            height: max-content;
-            margin: auto 5px auto auto;
-            display: flex;
-
-            svg,
-            img {
-                width: 25px;
-                height: 25px;
-                box-sizing: border-box;
-                margin: 0 5px;
-                border-radius: 50%;
-                cursor: pointer;
-            }
-
-            .modal {
-                display: none;
-                position: absolute;
-                top: 50px;
-                right: 5px;
-                width: 150px;
-                box-shadow: 0px 0px 5px grey;
-                border-radius: 5px;
-
-                p {
-                    cursor: pointer;
-                    font-size: 0.9rem;
-                    width: 99%;
-                    padding: 5px 10px;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    text-align: center;
-                    box-sizing: border-box;
-                    border-radius: 5px;
-                    margin: auto;
-                }
-
-                p:hover {
-                    background-color: var(--blue50--);
-                    color: white
-                }
-            }
-
-            .open {
-                display: block;
-            }
+        .item {
+            height: calc(100% - 20px);
+            margin: auto;
+            border-radius: 5px;
         }
 
         .left {
-            margin: auto 0;
-        }
-    }
-}
-
-.parallaxs {
-    width: 100%;
-    overflow: auto;
-    cursor: grab;
-
-    .parallaxBox {
-        display: flex;
-        flex-wrap: wrap;
-        width: max-content;
-        max-width: 3500px;
-        padding: 25px 0;
-
-        .item {
-            min-width: 300px;
-            width: max-content;
-            height: 350px;
-            margin: 10px 20px;
-            padding: 20px;
-            border-radius: 10px;
-            user-select: none;
-            transition: all 0.25s;
-            box-shadow: 0px 0px 2px #888;
 
             p {
-                margin: 10px 0;
-                font-size: 0.9rem;
+                font-size: 1.2rem;
+                font-weight: bold;
+                padding: 10px 0;
+                cursor: pointer;
             }
 
-            .picture {
-                height: 80%;
+            p:hover {
+                background-color: var(--blue35--);
+                color: var(--blue100--);
+            }
+        }
 
+        .right {
+            @media (max-width:575px) {
+                margin: 0;
+            }
+        }
+
+
+    }
+
+    .menuOpen {
+        width: 100%;
+        left: 0;
+        right: auto;
+    }
+
+    .header {
+        height: 50px;
+        position: fixed;
+        top: 5px;
+        width: 100%;
+        z-index: 9;
+
+        .box {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            height: 100%;
+            display: flex;
+            position: relative;
+            border-radius: 5px;
+            padding: 0 25px;
+            transition: all 0.25s;
+            opacity: 0.5;
+
+            .title {
+                margin: auto 5px auto 0px;
+                width: 100%;
+
+                h1 {
+                    cursor: pointer;
+                }
+            }
+
+            .icons {
+                height: max-content;
+                margin: auto 5px auto auto;
+                display: flex;
+
+                svg,
                 img {
-                    width: auto;
-                    height: 95%;
+                    width: 25px;
+                    height: 25px;
+                    box-sizing: border-box;
+                    margin: 0 5px;
+                    border-radius: 50%;
+                    cursor: pointer;
                 }
 
+                .modal {
+                    display: none;
+                    position: absolute;
+                    top: 50px;
+                    right: 5px;
+                    width: 150px;
+                    box-shadow: 0px 0px 10px grey;
+                    border-radius: 5px;
+
+                    p {
+                        cursor: pointer;
+                        font-size: 0.9rem;
+                        width: 99%;
+                        padding: 5px 10px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        text-align: center;
+                        box-sizing: border-box;
+                        border-radius: 5px;
+                        margin: auto;
+                    }
+
+                    p:hover {
+                        background-color: var(--blue50--);
+                        color: white
+                    }
+                }
+
+                .open {
+                    display: block;
+                }
+            }
+
+            .left {
+                margin: auto 0;
             }
         }
 
-        .item:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 0px 10px #888;
+        .boxHover {
+            opacity: 1;
+            backdrop-filter: blur(2px);
+            box-shadow: 0px 0px 2px #888;
         }
     }
-}
 
-.parallaxs:active {
-    cursor: grabbing;
-}
+    .parallaxs {
+        width: 100%;
+        overflow: auto;
 
-.parallaxs::-webkit-scrollbar {
-    display: none;
+        .parallaxBox {
+            display: flex;
+            flex-wrap: wrap;
+            width: max-content;
+            max-width: 2500px;
+            padding: 50px 0px;
+
+            .item {
+                min-width: 300px;
+                width: max-content;
+                height: 40vh;
+                max-height: 350px;
+                margin: 25px 20px;
+                padding: 20px;
+                border-radius: 10px;
+                user-select: none;
+                transition: all 0.25s;
+                box-shadow: 0px 0px 2px #888;
+                cursor: pointer;
+
+                p {
+                    margin: 0.5vh 0;
+                    font-size: 0.9rem;
+                }
+
+                .picture {
+                    height: 80%;
+
+                    img {
+                        width: auto;
+                        height: 95%;
+                    }
+
+                }
+            }
+
+            .item:hover {
+                transform: scale(1.025);
+                box-shadow: 0px 0px 10px #888;
+            }
+        }
+    }
+
+    .parallaxs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .single {
+        display: flex;
+        flex-wrap: wrap;
+
+        .item {
+            height: calc(100vh - 20px);
+            margin: 10px auto;
+            border-radius: 5px;
+        }
+
+        .left {
+            overflow: hidden;
+
+            img {
+                height: auto;
+                width: 80%;
+                margin: auto
+            }
+        }
+
+        .right {
+            overflow: scroll;
+            padding: 10px;
+
+            .page {
+                height: 100vh;
+
+                h4 {
+                    margin-bottom: 10px;
+                }
+
+                p {
+                    font-size: 0.9rem;
+                    margin-bottom: 10px;
+                }
+
+                .title {
+                    font-size: 1.2rem;
+                    font-weight: bold;
+                }
+
+                img {
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+
+        .right::-webkit-scrollbar {
+            display: none;
+        }
+    }
 }
