@@ -41,7 +41,7 @@ const Header = () => {
 
     return (
         <div className={`header `}>
-            <div className={`box ${hover ? (currentTheme ? "boxHover light" : "boxHover dark") : ""}`} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
+            <div className={`box ${hover ? "boxHover" : ""}`} onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
                 <div className="icons left">
                     <MenuIcon onClick={() => store.dispatch(setMenu(true))} />
                 </div>
@@ -50,8 +50,8 @@ const Header = () => {
                 <div className="icons">
                     {currentTheme ? <DarkModeIcon onClick={() => store.dispatch(setTheme(!currentTheme))} /> : <LightModeIcon onClick={() => store.dispatch(setTheme(!currentTheme))} />}
                     {Object.keys(currentUser).length ?
-                        <Image
-                            src={currentUser.infor.avata}
+                        <img
+                            src={currentUser.infor && process.env.GOOGLE_URL + currentUser.infor.avata}
                             alt="Picture of the author"
                             width={50}
                             height={50}

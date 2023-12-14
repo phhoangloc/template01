@@ -20,6 +20,17 @@
             height: 100%;
             display: flex;
 
+            p {
+                svg {
+                    margin: auto 5px;
+                    width: 20px;
+                    height: 20px;
+                    margin-top: 15px;
+                }
+
+                padding-left: 5px;
+            }
+
             .title {
                 margin: auto 5px;
             }
@@ -222,6 +233,42 @@
                     bottom: 0;
                     right: -20px;
                 }
+            }
+
+            .item {
+                aspect-ratio: 1/1;
+                margin: 25px auto;
+                height: max-content;
+                max-height: 450px;
+                box-shadow: 0px 0px 2px #888;
+                position: relative;
+                border-radius: 5px;
+
+                h3 {
+                    text-align: center;
+                }
+            }
+
+            .avata {
+                overflow: hidden;
+                text-align: center;
+
+
+                img {
+                    height: 100%;
+
+                }
+
+                svg {
+                    position: absolute;
+                    bottom: 5px;
+                    right: 5px;
+                }
+            }
+
+            .user,
+            .infor {
+                padding: 10px;
             }
         }
     }

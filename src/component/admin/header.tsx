@@ -6,9 +6,9 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import store from '@/redux/store';
 import { setTheme } from '@/redux/reducer/ThemeReduce';
 import PersonIcon from '@mui/icons-material/Person';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { setUpdate } from '@/redux/reducer/UpdateReduce';
+import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
 const Header = () => {
     const router = useRouter()
     const [currentTheme, setCurrentTheme] = useState<boolean>(store.getState().theme)
@@ -38,17 +38,17 @@ const Header = () => {
     return (
         <div className='header'>
             <div className="box">
+                <a href={process.env.HOMEPAGE_URL}><p><TrendingFlatIcon />{process.env.HOMEPAGE_URL}</p></a>
                 <div className="icons">
                     <NotificationsIcon />
                     {currentTheme ? <DarkModeIcon onClick={() => store.dispatch(setTheme(!currentTheme))} /> : <LightModeIcon onClick={() => store.dispatch(setTheme(!currentTheme))} />}
                     {Object.keys(currentUser).length ?
-                        <Image
-                            src={currentUser.infor.avata}
+                        <img
+                            src={process.env.GOOGLE_URL + currentUser.infor.avata}
                             alt="Picture of the author"
                             width={50}
                             height={50}
                             onClick={() => setModalOpen(!modalOpen)}
-                            priority={true}
                         />
                         : <PersonIcon />}
                     <div className={`modal ${modalOpen ? "open" : ""}`}>
@@ -56,7 +56,7 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

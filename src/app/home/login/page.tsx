@@ -6,21 +6,21 @@ import store from '@/redux/store'
 type Props = {}
 
 const page = (props: Props) => {
-    const [currentTheme, setCurrentTheme] = useState<boolean>(store.getState().theme)
-
+    const [currentTheme, setCurrentTheme] = useState(store.getState().theme)
     const update = () => {
         store.subscribe(() => setCurrentTheme(store.getState().theme))
     }
 
     useEffect(() => {
         update()
-    }, [])
+    })
+
     const reCom =
         <div className='single'>
-            <div className={`item xs12 sm6 md4 left center ${currentTheme ? "white" : "black"}`}>
+            <div className={`item xs12 sm12 md6 left center ${currentTheme ? "white" : "black"}`}>
                 <SingleLeft img={'/img/coffee.jpg'} />
             </div>
-            <div className={`item xs12 sm6 md8 right center `}>
+            <div className={`item xs12 sm12 md6 right center `}>
                 <Form />
             </div>
         </div>

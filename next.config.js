@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['res.cloudinary.com'],
+        domains: ['res.cloudinary.com', 'drive.google.com'],
         remotePatterns: [
             {
                 protocol: 'http',
@@ -12,7 +12,8 @@ const nextConfig = {
     },
     env: {
         HOMEPAGE_URL: "http://localhost:3000/",
-        SERVER_URL: "http://localhost:4000/",
+        SERVER_URL: "https://localhost:4000/",
+        GOOGLE_URL: "https://drive.google.com/uc?id=",
     },
 }
 

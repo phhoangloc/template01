@@ -77,7 +77,7 @@ const User = () => {
                 <div className="icons">
                     <RefreshIcon onClick={() => { setSortBy(""); setSearch("") }} />
                     <SortByAlphaIcon onClick={() => setSortBy(sortby != "username" ? "username" : "")} />
-                    <AddIcon />
+                    <AddIcon onClick={() => changePageEdit("newuser", "user")} />
                 </div>
             </div>
             {users && users.map(

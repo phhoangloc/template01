@@ -281,8 +281,22 @@ svg {
   text-align: center;
 }
 
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .textJustify {
   text-align: justify;
+}
+
+.textRight {
+  text-align: right !important;
+}
+
+.mrg_right_0 {
+  margin-left: auto;
+  margin-right: 0;
 }
 
 .link {
@@ -424,6 +438,20 @@ button:active {
 
 .form h1 {
   margin-bottom: 25px;
+}
+
+.form .linkform {
+  margin-top: 50px;
+  font-size: 0.75rem;
+  color: var(--blue35--);
+  text-align: center;
+  cursor: pointer;
+}
+
+.form .warn {
+  font-size: 0.75rem;
+  color: red;
+  margin-top: 2.5px;
 }
 
 .form_focus {

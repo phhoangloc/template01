@@ -50,7 +50,7 @@ const Parallax = ({ data }: parallaxType) => {
                                 key={index}
                                 genre={item.genre}
                                 name={item.name || item.title}
-                                img={(item.img && process.env.SERVER_URL + item.img) || (item.cover && process.env.SERVER_URL + item.cover)}
+                                img={(item.img && process.env.GOOGLE_URL + item.img) || (item.cover && process.env.GOOGLE_URL + item.cover)}
                             />
                         )
                         :

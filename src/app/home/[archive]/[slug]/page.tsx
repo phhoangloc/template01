@@ -14,14 +14,13 @@ const Page = ({ params }: Props) => {
 
     const [currentTheme, setCurrentTheme] = useState<boolean>(store.getState().theme)
 
-    const [modalOpen, setModalOpen] = useState(false)
     const update = () => {
         store.subscribe(() => setCurrentTheme(store.getState().theme))
     }
 
     useEffect(() => {
         update()
-    }, [])
+    })
 
     const [item, setitem] = useState<any>()
     const [isLoading, setIsLoading] = useState<boolean>(true)
@@ -49,10 +48,10 @@ const Page = ({ params }: Props) => {
         isLoading ? <Loading /> :
             item && item._id ?
                 <div className='single'>
-                    <div className={`item xs12 sm6 md4 left center ${currentTheme ? "white" : "black"}`}>
+                    <div className={`item xs12 sm12 md6 left center ${currentTheme ? "white" : "black"}`}>
                         <SingleLeft img={item.img || item.cover} />
                     </div>
-                    <div className={`item xs12 sm6 md8 right `}>
+                    <div className={`item xs12 sm12 md6 right `}>
                         <SingleRight item={item} />
                     </div>
                 </div>
