@@ -11,8 +11,8 @@ const nextConfig = {
         ],
     },
     env: {
-        HOMEPAGE_URL: "http://localhost:3000/",
-        SERVER_URL: "https://localhost:4000/",
+        HOMEPAGE_URL_: "http://localhost:3000/",
+        SERVER_URL: "https://126.4.193.90:4000/",
         GOOGLE_URL: "https://drive.google.com/uc?id=",
     },
 }

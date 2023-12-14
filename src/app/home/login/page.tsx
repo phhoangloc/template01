@@ -3,17 +3,13 @@ import React, { useState, useEffect } from 'react'
 import Form from '@/component/element/form'
 import SingleLeft from '@/component/element/singleLeft'
 import store from '@/redux/store'
-type Props = {}
 
-const page = (props: Props) => {
+const Page = () => {
     const [currentTheme, setCurrentTheme] = useState(store.getState().theme)
     const update = () => {
         store.subscribe(() => setCurrentTheme(store.getState().theme))
     }
-
-    useEffect(() => {
-        update()
-    })
+    update()
 
     const reCom =
         <div className='single'>
@@ -27,4 +23,4 @@ const page = (props: Props) => {
     return reCom
 }
 
-export default page
+export default Page

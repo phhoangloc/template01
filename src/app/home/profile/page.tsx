@@ -3,9 +3,7 @@ import store from '@/redux/store'
 import React, { useState } from 'react'
 
 
-type Props = {}
-
-const Profile = (props: Props) => {
+const Profile = () => {
     const [currentTheme, setCurrentTheme] = useState<boolean>(store.getState().theme)
     const [currentUser, setCurrentUser] = useState<any>(store.getState().user)
     const [currentUpdate, setCurrentUpdate] = useState<number>(store.getState().update)
