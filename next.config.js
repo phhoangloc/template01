@@ -12,7 +12,7 @@ const nextConfig = {
     },
     env: {
         HOMEPAGE_URL_: "http://localhost:3000/",
-        SERVER_URL: "https://192.168.2.80:4000/",
+        SERVER_URL: "https://localhost:4000/",
         GOOGLE_URL: "https://drive.google.com/uc?id=",
     },
 }
