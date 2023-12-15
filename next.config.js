@@ -5,14 +5,14 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: '126.4.193.90',
+                hostname: 'admin.locand.jp',
                 port: '4000',
             },
         ],
     },
     env: {
         HOMEPAGE_URL_: "http://localhost:3000/",
-        SERVER_URL: "https://localhost:4000/",
+        SERVER_URL: "https://admin.locand.jp:4000/",
         GOOGLE_URL: "https://drive.google.com/uc?id=",
     },
 }

@@ -13,7 +13,6 @@ const Home = () => {
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
     const getbooks = async () => {
-        setIsLoading(true)
         await fetch(process.env.SERVER_URL + "book", {
             method: 'GET',
         })
@@ -21,12 +20,10 @@ const Home = () => {
             .then((data) => {
                 if (data.success) {
                     setBooks(data.data)
-                    setIsLoading(false)
                 }
             })
     }
     const getblogs = async () => {
-        setIsLoading(true)
 
         await fetch(process.env.SERVER_URL + "blog", {
             method: 'GET',
@@ -35,7 +32,6 @@ const Home = () => {
             .then((data) => {
                 if (data.success) {
                     setBlogs(data.data)
-                    setIsLoading(false)
                 }
             })
     }
@@ -43,6 +39,8 @@ const Home = () => {
     useEffect(() => {
         getbooks()
         getblogs()
+        setIsLoading(false)
+
     }, [])
 
     const parallaxData = [...books, ...blogs]

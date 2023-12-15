@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Loading from '@/component/item/loading'
 import store from '@/redux/store'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
@@ -13,7 +13,7 @@ import io from 'socket.io-client';
 import CloseIcon from '@mui/icons-material/Close';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
 import VideoCall from '@/component/element/videoCall';
-
+import { myWebcam, yourWebcam } from '@/function/webcam';
 const Chat = () => {
 
     const [socket, setSocket] = useState<any>()
@@ -35,6 +35,11 @@ const Chat = () => {
 
     const [isLoading, setIsloading] = useState<boolean>(false)
     const [onLiveRoom, setOnliveRoom] = useState<boolean>(false)
+
+    const [stream, setStream] = useState<MediaStream>()
+    const [clientStream, setClientStream] = useState<MediaStream>()
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const videoRef2 = useRef<HTMLVideoElement>(null);
 
     const update = () => {
         store.subscribe(() => setCurrentTheme(store.getState().theme))
@@ -65,7 +70,16 @@ const Chat = () => {
             }
         })
 
-        socket.on('online', data => setOnline(data))
+        socket.on('online', data => {
+            setOnline(data.online)
+            setNoteText(data.msg)
+        })
+
+        socket.on("webYou", async (data: any) => {
+            let packagedData = JSON.parse(data.myStream);
+            const newStream = await yourWebcam(packagedData)
+            videoRef2 && videoRef2.current ? videoRef2.current.srcObject = newStream : null
+        })
 
         return () => { socket.disconnect() }
 
@@ -82,6 +96,18 @@ const Chat = () => {
     const sendMsg = () => {
         setMessage("")
         socket.emit('user', { type: "msg", name: currentUser.username, msg: message })
+    }
+
+    const openWebcam = async () => {
+        const currentStream: MediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        const myStream = myWebcam(currentStream)
+        socket.emit("onWebcam", { myStream })
+        videoRef && videoRef.current ? videoRef.current.srcObject = currentStream : null
+        setStream(currentStream)
+    }
+    const closeWebcam = async () => {
+        const tracks = stream?.getTracks();
+        tracks && tracks.forEach((track: any) => track.stop());
     }
 
     const reCom =
@@ -114,7 +140,7 @@ const Chat = () => {
                                 </p>)}
                         </div>
                         <div className="iconTool ">
-                            <VideoCallIcon onClick={() => setOnliveRoom(true)} />
+                            <VideoCallIcon onClick={() => openWebcam()} />
                         </div>
                         <div className="input_box">
                             <Texterea value={message} onChange={(e) => setMessage(e.target.value)} name='message' />
@@ -123,12 +149,11 @@ const Chat = () => {
 
 
                     </div>
-                    {onLiveRoom ?
-                        <div className='call main center'>
-                            <CloseIcon onClick={() => setOnliveRoom(false)} />
-                            <VideoCall />
-                        </div> :
-                        null}
+                    <div className='call main center'>
+                        <CloseIcon onClick={() => closeWebcam()} />
+                        <video ref={videoRef} autoPlay playsInline />
+                        <video ref={videoRef2} autoPlay playsInline />
+                    </div>
                 </div>
     return reCom
 }

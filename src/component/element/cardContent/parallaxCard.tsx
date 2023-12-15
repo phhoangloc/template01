@@ -19,7 +19,7 @@ const ParallaxCard = ({ genre, name, img, slug }: Props) => {
 
     update()
     return (
-        <div className={`item ${currentTheme ? "white" : "black"}`} onClick={() => router.push(`/home/${genre}/${slug}`)}>
+        <div className={`item ${currentTheme ? "light_plus5" : "dark_plus5"}`} onClick={() => router.push(`/home/${genre}/${slug}`)}>
             <div className="picture">
                 <img src={img} width={200} height={200} alt='itempic' />
             </div>
