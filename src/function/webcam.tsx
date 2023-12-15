@@ -35,16 +35,18 @@ const yourWebcam = async (data: any) => {
     let audioInfo = data.audio;
 
     // Tạo các MediaStreamTrack từ thông tin trích xuất
-    let videoTrack = navigator.mediaDevices.getUserMedia({ video: videoInfo.constraints });
-    let audioTrack = navigator.mediaDevices.getUserMedia({ audio: audioInfo.constraints });
+    // let videoTrack = navigator.mediaDevices.getUserMedia({ video: videoInfo.constraints });
+    // let audioTrack = navigator.mediaDevices.getUserMedia({ audio: audioInfo.constraints });
 
     // const newStream = async(ste)
-    const stream = async ([v, a]: [videoTrack: Promise<MediaStream>, audioTrack: Promise<MediaStream>]) => {
+    const stream = async ([v, a]: any) => {
+        // const stream = async ([v, a]: [videoTrack: Promise<MediaStream>, audioTrack: Promise<MediaStream>]) => {
         // Tạo MediaStream mới từ các track đã được tạo
-        let stream = new MediaStream([(await v).getVideoTracks()[0], (await a).getAudioTracks()[0]]);
-        return stream
+        // let stream = new MediaStream([(await v).getVideoTracks()[0], (await a).getAudioTracks()[0]]);
+        const newStream = new MediaStream([v, a]);
+        return newStream
     }
-    const newStream = await stream([videoTrack, audioTrack])
+    const newStream = await stream([videoInfo, audioInfo])
     return newStream
 }
 
