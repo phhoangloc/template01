@@ -77,7 +77,8 @@ const Chat = () => {
 
         socket.on("webYou", async (data: any) => {
             let packagedData = JSON.parse(data.myStream);
-            const newStream = await yourWebcam(packagedData)
+            const newStream = new MediaStream([packagedData.video, packagedData.audio]);
+            // const newStream = await yourWebcam(packagedData)
             videoRef2 && videoRef2.current ? videoRef2.current.srcObject = newStream : null
         })
 

@@ -31,8 +31,8 @@ const myWebcam = (stream: MediaStream) => {
 const yourWebcam = async (data: any) => {
 
     // Trích xuất thông tin từ đối tượng JSON
-    let videoInfo = data.video;
-    let audioInfo = data.audio;
+    // let videoInfo = data.video;
+    // let audioInfo = data.audio;
 
     // Tạo các MediaStreamTrack từ thông tin trích xuất
     // let videoTrack = navigator.mediaDevices.getUserMedia({ video: videoInfo.constraints });
@@ -46,8 +46,8 @@ const yourWebcam = async (data: any) => {
         const newStream = new MediaStream([v, a]);
         return newStream
     }
-    const newStream = await stream([videoInfo, audioInfo])
-    return newStream
+    // const newStream = await stream([videoInfo, audioInfo])
+    return data
 }
 
 
