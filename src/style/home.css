@@ -268,180 +268,100 @@
 }
 
 .home .chat {
-  display: flex;
-  flex-wrap: wrap;
   width: 100%;
-  max-width: 1200px;
-  margin: auto;
-  height: 100vh;
-  position: relative;
-  padding: 50px 25px;
+  max-width: 1600px;
+  height: calc(100vh - 50px);
+  margin: 55px auto 0;
+  padding: 0 25px;
+  display: flex;
 }
 
-.home .chat .room {
-  position: absolute;
-  top: 60px;
-  height: 80%;
-  width: 300px;
+.home .chat .friends {
+  width: 50px;
+  height: 99%;
+  box-shadow: 0px 0px 5px #888;
   border-radius: 5px;
-  text-align: center;
-  box-shadow: 0px 0px 1px #888;
+}
+
+.home .chat .friends p {
   display: none;
-  z-index: 2;
 }
 
-.home .chat .room .item {
-  height: 30px;
-  line-height: 30px;
-  color: #888;
-  border-bottom: 1px solid;
-  width: 90%;
-  margin: 5px auto;
-  text-align: left;
-  display: flex;
-  position: relative;
-}
-
-.home .chat .room .item .icon {
-  position: unset;
-  height: 20px;
-  width: 20px;
-  margin: 2.5px;
-  color: #888;
-  bottom: unset;
-  right: unset;
-}
-
-.home .chat .room .icon {
-  position: absolute;
-  height: 30px;
-  width: 30px;
-  margin: 5px;
-  bottom: 5px;
-  right: 5px;
-  color: #888;
-}
-
-.home .chat .room .room_friend_box {
-  width: 90%;
-  margin: 5px auto;
-}
-
-.home .chat .room .room_friend_box p {
-  height: 20px;
-  line-height: 20px;
-  text-align: left;
-}
-
-.home .chat .roomOpen {
-  display: block;
-}
-
-.home .chat .chatbox {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  top: 10px;
-}
-
-.home .chat .chatbox svg {
-  position: absolute;
-  height: 30px;
-  width: 30px;
-  margin: 5px;
-  top: 2.5px;
-  left: 0px;
-  border: 1px solid;
-  border-radius: 50%;
-  padding: 2.5px;
-  box-sizing: border-box;
-}
-
-.home .chat .chatbox .message {
-  height: 75%;
-  border-radius: 5px;
-}
-
-.home .chat .chatbox .message .item {
-  width: 50%;
-  border-radius: 10px;
-  box-shadow: 0px 0px 1px #888;
-  padding: 5px 10px;
-  text-align: left;
-  line-height: 1.5;
-  margin-top: 5px;
-}
-
-.home .chat .chatbox .message .item span {
-  font-size: 0.9rem;
-  opacity: 0.5;
-}
-
-.home .chat .chatbox .iconTool {
-  position: relative;
-  top: -20px;
-}
-
-.home .chat .chatbox .input_box {
-  height: 25%;
+.home .chat .friends .title {
   display: flex;
 }
 
-.home .chat .chatbox .input_box .input {
-  width: 75%;
-  height: 100%;
-}
-
-.home .chat .chatbox .input_box .input .title {
-  top: 5px;
-}
-
-.home .chat .chatbox .input_box .input .title_focus {
-  top: -25px;
-  opacity: 0;
-}
-
-.home .chat .chatbox .input_box .input textarea {
-  width: 100%;
-  margin: auto 0 0;
-  height: calc(100% - 25px);
+.home .chat .friends .title svg {
+  width: 30px;
+  height: 30px;
   padding: 5px;
-  box-shadow: 0px 0px 2px;
+  margin: 10px auto;
 }
 
-.home .chat .chatbox .input_box .input textarea:focus {
-  outline: none;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.05);
+.home .chat .callRoom {
+  width: 0;
+  overflow: hidden;
 }
 
-.home .chat .chatbox .input_box button {
-  width: 20%;
-  margin: auto auto 0;
-  border-radius: 5px;
+.home .chat .callRoom .mainVideo {
+  width: 100%;
+  height: 75%;
 }
 
-.home .chat .call video {
-  width: 100px;
-  height: 100px;
+.home .chat .callRoom .mainVideo video {
+  width: 100%;
+  max-width: 768px;
 }
 
-.home .chat .scroll::-webkit-scrollbar {
-  display: none;
+.home .chat .callRoomOpen {
+  width: calc(100% - 50px);
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.home .chat .callRoomOpen svg {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 @media (min-width: 768px) {
-  .home .chat .room {
-    position: inherit;
-    display: block;
-    height: calc(100%);
-    top: 5px;
+  .home .chat .callRoomOpen {
+    width: calc(100% - 200px);
   }
-  .home .chat .chatbox {
-    width: calc((100% - 350px));
+}
+
+.home .chat .messageBox {
+  width: calc(100% - 50px);
+  height: 100%;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .home .chat .messageBox {
+    width: calc(100% - 200px);
+  }
+}
+
+.home .chat .messageBoxClose {
+  width: 0;
+}
+
+@media (min-width: 768px) {
+  .home .chat .friends {
+    width: 200px;
+  }
+  .home .chat .friends p {
+    display: block;
+    line-height: 50px;
+  }
+  .home .chat .friends .title {
+    width: 90%;
     margin: auto;
   }
-  .home .chat .chatbox .icon {
-    display: none;
+  .home .chat .friends .title svg {
+    text-align: right;
+    margin: auto 0 auto auto;
   }
 }

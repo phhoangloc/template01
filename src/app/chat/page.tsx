@@ -1,45 +1,15 @@
 'use client'
-import React, { useState, useEffect, useRef } from 'react'
-import Loading from '@/component/item/loading'
-import store from '@/redux/store'
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import PeopleIcon from '@mui/icons-material/People';
-import Icon from '@/component/item/icon';
-import Texterea from '@/component/item/texterea';
-import Button from '@/component/item/button';
-import AddIcon from '@mui/icons-material/Add';
-import io from 'socket.io-client';
-import CloseIcon from '@mui/icons-material/Close';
+import MapsUgcIcon from '@mui/icons-material/MapsUgc';
+import store from '@/redux/store';
+import { useEffect, useRef, useState } from 'react';
+import { Socket, io } from 'socket.io-client';
 import VideoCallIcon from '@mui/icons-material/VideoCall';
-import VideoCall from '@/component/element/videoCall';
-import { myWebcam, yourWebcam } from '@/function/webcam';
+import Peer from 'simple-peer'
 const Chat = () => {
 
-    const [socket, setSocket] = useState<any>()
     const [currentTheme, setCurrentTheme] = useState<boolean>(store.getState().theme)
     const [currentUser, setCurrentUser] = useState<any>(store.getState().user)
     const [currentUpdate, setCurrentUpdate] = useState<number>(store.getState().update)
-
-    const [welcomeText, setWelcomeText] = useState<string>("")
-    const [noteText, setNoteText] = useState<string>("")
-    const [msgArray, setMsgArray] = useState<any>([])
-    const [online, setOnline] = useState<any>([])
-
-    const isLogin = currentUser && Object.keys(currentUser).length ? true : false
-
-    const [message, setMessage] = useState<string>("")
-    const [userMessage, setUserMessage] = useState<any>()
-
-    const [roomModal, setRoomModal] = useState<boolean>(false)
-
-    const [isLoading, setIsloading] = useState<boolean>(false)
-    const [onLiveRoom, setOnliveRoom] = useState<boolean>(false)
-
-    const [stream, setStream] = useState<MediaStream>()
-    const [clientStream, setClientStream] = useState<MediaStream>()
-    const videoRef = useRef<HTMLVideoElement>(null);
-    const videoRef2 = useRef<HTMLVideoElement>(null);
 
     const update = () => {
         store.subscribe(() => setCurrentTheme(store.getState().theme))
@@ -47,116 +17,112 @@ const Chat = () => {
         store.subscribe(() => setCurrentUpdate(store.getState().update))
     }
 
-    useEffect(() => {
-        update()
-    })
+    update()
+
+    const [socket, setSocket] = useState<Socket>()
+    const [welcome, setWelcome] = useState<string>("")
+    const [notice, setNotice] = useState<string>("")
+    const [online, setOnline] = useState<[]>([])
+
+    const [onCall, setOnCall] = useState<boolean>(false)
+    const [stream, setStream] = useState<MediaStream>()
+
+    const mainVideo = useRef<any>("")
+    const childVideo = useRef<any>("")
+    const currentPeer = useRef<any>("")
+
+    //function
+    const leaveRoom = () => {
+
+        const tracks = stream && stream.getTracks()
+        tracks?.forEach((track: MediaStreamTrack) => {
+            track.stop()
+        })
+
+        setOnCall(false)
+    }
 
     useEffect(() => {
-        const socket = io(`${process.env.SERVER_URL}`);
-
+        const socket = io(`${process.env.SERVER_URL}`)
         setSocket(socket)
 
-        socket.on('msg', (data) => {
-
-            if (data.type === "note") {
-                setWelcomeText(data.msg)
-            }
-            if (data.type === "leave") {
-                setNoteText(data.msg)
-                setOnline(data.online)
-            }
-            if (data.type === "msg") {
-                setUserMessage(data)
-            }
-        })
-
-        socket.on('online', data => {
+        socket.on("online", data => {
             setOnline(data.online)
-            setNoteText(data.msg)
+            setWelcome(data.msg)
+
+            setTimeout(() => {
+                setWelcome("")
+            }, 3000)
         })
 
-        socket.on("webYou", async (data: any) => {
-            let packagedData = JSON.parse(data.myStream);
-            const newStream = new MediaStream([packagedData.video, packagedData.audio]);
-            console.log(newStream)
-            // const newStream = await yourWebcam(packagedData)
-            videoRef2 && videoRef2.current ? videoRef2.current.srcObject = newStream : null
+        socket.on("msg", data => {
+            if (data.type = "leave") {
+                setNotice(data.msg)
+                setTimeout(() => {
+                    setNotice("")
+                }, 3000)
+            }
+        })
+
+        socket.on("webYou", data => {
+            currentPeer.current.on("stream", (stream: MediaStream) => {
+                childVideo.current ? childVideo.current.srcObject = stream : null
+
+            })
+            currentPeer.current.signal(data)
         })
 
         return () => { socket.disconnect() }
-
     }, [])
 
     useEffect(() => {
-        isLogin && socket.emit('user', { type: "note", name: currentUser.username, msg: "welcome to my Chat" })
-    }, [isLogin])
+        currentUser.username && socket && socket.emit("user", { type: "welcome", name: currentUser.username })
+    }, [currentUser.username])
 
     useEffect(() => {
-        userMessage && setMsgArray([...msgArray, userMessage])
-    }, [userMessage])
+        onCall && navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            .then(currentStream => {
+                setStream(currentStream)
+                mainVideo.current ? mainVideo.current.srcObject = currentStream : null
+            })
+    }, [onCall])
 
-    const sendMsg = () => {
-        setMessage("")
-        socket.emit('user', { type: "msg", name: currentUser.username, msg: message })
-    }
 
-    const openWebcam = async () => {
-        const currentStream: MediaStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-        const myStream = myWebcam(currentStream)
-        socket.emit("onWebcam", { myStream })
-        videoRef && videoRef.current ? videoRef.current.srcObject = currentStream : null
-        setStream(currentStream)
-    }
-    const closeWebcam = async () => {
-        const tracks = stream?.getTracks();
-        tracks && tracks.forEach((track: any) => track.stop());
-    }
+    useEffect(() => {
+        const peer = new Peer({ initiator: true, trickle: false, stream: stream })
+        peer.on("signal", (data: Peer.SignalData) => {
+            stream && socket && socket.emit("onWeb", data)
+            currentPeer.current = peer
+        })
+    }, [socket, stream])
 
     const reCom =
-        isLoading ? <Loading /> :
-            !Object.keys(currentUser).length ?
-                <p>Log In</p> :
-                <div className='chat'>
-                    <div className={`item room ${currentTheme ? "white" : "black"} ${roomModal ? "roomOpen" : ""}`}>
-                        <div className="room_room">
-                            <div className='item'><Icon icon={<ArrowRightIcon />} />room <Icon icon={<AddIcon />} /></div>
-                            <div className="room_room_box"></div>
-                        </div>
-                        <div className="room_friend">
-                            <div className='item'><Icon icon={<ArrowRightIcon />} />friend <Icon icon={<AddIcon />} /></div>
-                            <div className="room_friend_box">
-                                {online.map((item: any, index: number) => <p key={index}>{item}</p>)}
-                            </div>
-                        </div>
-                        <Icon icon={<KeyboardBackspaceIcon onClick={() => setRoomModal(false)} />} />
-                    </div>
-                    <div className={`item chatbox center`}>
-                        <Icon icon={<PeopleIcon onClick={() => setRoomModal(true)} />} />
-                        <div className="message">
-                            <p>{welcomeText}</p>
-                            <p>{noteText}</p>
-                            {msgArray.map((item: any, index: any) =>
-                                <p key={index}
-                                    className={`item ${currentTheme ? "white" : "black"} ${item.sender ? "" : "mrg_right_0 textRight"}`}>
-                                    <span>{item.name}</span><br></br>{item.msg}
-                                </p>)}
-                        </div>
-                        <div className="iconTool ">
-                            <VideoCallIcon onClick={() => openWebcam()} />
-                        </div>
-                        <div className="input_box">
-                            <Texterea value={message} onChange={(e) => setMessage(e.target.value)} name='message' />
-                            <Button func={() => sendMsg()} name="send" />
-                        </div>
+        <div className="chat">
+            <div className="friends">
+                <div className='title'>
+                    <p>New Message</p><MapsUgcIcon />
 
-
-                    </div>
-                    <div className='call main center'>
-                        <CloseIcon onClick={() => closeWebcam()} />
-                        <video ref={videoRef} autoPlay playsInline />
-                        <video ref={videoRef2} autoPlay playsInline />
-                    </div>
                 </div>
+                <div className='title'>
+                    <p>New Call</p><VideoCallIcon onClick={() => setOnCall(true)} />
+                </div>
+                {online.map((item, index) => <p key={index} className='item'>{item}</p>)}
+
+            </div>
+            <div className={`callRoom  ${onCall ? "callRoomOpen" : null}`}>
+                <button onClick={() => { leaveRoom() }}>leave room</button>
+                <div className="mainVideo">
+                    <video ref={mainVideo} autoPlay playsInline />
+                    <video ref={childVideo} autoPlay playsInline />
+                </div>
+            </div>
+            <div className={`messageBox  ${onCall ? "messageBoxClose" : null}`}>
+                {currentUser.username ? <p>hello {currentUser.username}</p> : <p>Loading...</p>}
+                <p>{welcome}</p>
+                <p>{notice}</p>
+            </div>
+        </div>
+
     return reCom
 }
 
