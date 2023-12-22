@@ -111,9 +111,11 @@ const Chat = () => {
             </div>
             <div className={`callRoom  ${onCall ? "callRoomOpen" : null}`}>
                 <button onClick={() => { leaveRoom() }}>leave room</button>
-                <div className="mainVideo">
+                <div className="mainVideo center">
                     <video ref={mainVideo} autoPlay playsInline />
-                    <video ref={childVideo} autoPlay playsInline />
+                </div>
+                <div className="childVideo">
+                    <video ref={childVideo} muted autoPlay playsInline />
                 </div>
             </div>
             <div className={`messageBox  ${onCall ? "messageBoxClose" : null}`}>
