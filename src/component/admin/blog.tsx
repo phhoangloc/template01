@@ -10,7 +10,9 @@ import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 import SearchIcon from '@mui/icons-material/Search';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { setUpdate } from '@/redux/reducer/UpdateReduce'
+import { setUpdate } from '@/redux/reducer/UpdateReduce';
+import AddIcon from '@mui/icons-material/Add';
+
 type funcParam = {
     search?: string,
     sortby?: string,
@@ -77,6 +79,7 @@ const Blog = () => {
                 <div className="icons">
                     <RefreshIcon onClick={() => { setSortBy(""); setSearch("") }} />
                     <SortByAlphaIcon onClick={() => setSortBy(sortby != "title" ? "title" : "")} />
+                    <AddIcon onClick={() => changePageEdit("newBlog", "blog")} />
                 </div>
             </div>
             {blogs && blogs.map(

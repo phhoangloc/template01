@@ -38,7 +38,6 @@ const Edit = ({ pages, currentslug }: Props) => {
         const [img, setImg] = useState<any>(currentUser.img)
         const [imgPre, setImgPre] = useState<any>()
         const [imgFile, setImgFile] = useState<any>()
-
         const [name, setName] = useState<string>("")
         const [genre, setGenre] = useState<string>("book")
         const [author, setAuthor] = useState<string>("")
@@ -178,7 +177,7 @@ const Edit = ({ pages, currentslug }: Props) => {
         const [imgFile, setImgFile] = useState<any>()
 
         const [name, setName] = useState<string>("")
-        const [genre, setGenre] = useState<string>("book")
+        const [genre, setGenre] = useState<string>("blog")
         const [author, setAuthor] = useState<string>("")
         const [slug, setSlug] = useState<string>(currentslug)
         const [detail, setDetail] = useState<string>("")
@@ -269,7 +268,7 @@ const Edit = ({ pages, currentslug }: Props) => {
                     .then((res) => res.json())
                     .then((data) => {
                         store.dispatch(setUpdate(1))
-                        router.push("/admin/book/" + slug)
+                        router.push("/admin/blog/" + slug)
                     })
             }
         }
@@ -281,11 +280,11 @@ const Edit = ({ pages, currentslug }: Props) => {
                     <div className='image_box'>
                         {
                             imgPre ?
-                                <Image src={imgPre} width={100} height={100} alt="hello" /> :
+                                <img src={imgPre} width={100} height={100} alt="hello" /> :
                                 book && book.cover ?
-                                    <img src={process.env.GOOGLE_URL + book.cover} width={100} height={100} alt='image'
+                                    <img src={process.env.GOOGLE_URL + book.cover} width={100} height={100} alt='img'
                                     /> :
-                                    <Image src={process.env.SERVER_URL + "img/bookcover/bookcoverDefault.jpeg"} width={100} height={100} alt='image' priority={true}
+                                    <img src={process.env.SERVER_URL + "img/bookcover/bookcoverDefault.jpeg"} width={100} height={100} alt='image'
                                     />
                         }
                     </div>
@@ -293,7 +292,7 @@ const Edit = ({ pages, currentslug }: Props) => {
                     <UploadButton icon={<UploadIcon />} func={(e) => getFile(e)} />
                 </div>
                 <Input name="Name" value={name} onChange={(e) => setName(e.target.value)} />
-                <Input name="Author" value={author} onChange={(e) => setAuthor(e.target.value)} disabled={true} />
+                <Input name={currentUser.username} value={author} onChange={(e) => setAuthor(e.target.value)} disabled={true} />
                 <Input name="Slug" value={slug} onChange={(e) => setSlug(e.target.value)} />
                 <Texterea value={detail} name="Detail" onChange={(e) => setDetail(e.target.value)} />
                 {book && book._id ? <p>createDate:{book && book.createDate}</p> : null}
@@ -301,11 +300,9 @@ const Edit = ({ pages, currentslug }: Props) => {
             </div>
         )
     }
-
     const EditUser = () => {
 
         const [users, setUsers] = useState<any>()
-
         const [id, setId] = useState<string>("")
         const [username, setUsername] = useState<string>("")
         const [password, setPassword] = useState<string>("")

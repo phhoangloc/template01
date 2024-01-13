@@ -65,11 +65,12 @@ const Chat = () => {
         })
 
         socket.on("webYou", data => {
-            currentPeer.current.on("stream", (stream: MediaStream) => {
-                childVideo.current ? childVideo.current.srcObject = stream : null
-
-            })
-            currentPeer.current.signal(data)
+            console.log(data)
+            // currentPeer.current.on("stream", (stream: MediaStream) => {
+            //     console.log(stream)
+            //     childVideo.current ? childVideo.current.srcObject = stream : null
+            // })
+            // currentPeer.current.signal(data)
         })
 
         return () => { socket.disconnect() }
@@ -83,10 +84,9 @@ const Chat = () => {
         onCall && navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then(currentStream => {
                 setStream(currentStream)
-                mainVideo.current ? mainVideo.current.srcObject = currentStream : null
+                // mainVideo.current ? mainVideo.current.srcObject = currentStream : null
             })
     }, [onCall])
-
 
     useEffect(() => {
         const peer = new Peer({ initiator: true, trickle: false, stream: stream })

@@ -48,10 +48,10 @@ const Page = ({ params }: Props) => {
         isLoading ? <Loading /> :
             item && item._id ?
                 <div className='single'>
-                    <div className={`item xs12 sm12 md6 left center ${currentTheme ? "white" : "black"}`}>
+                    <div className={`item xs12 sm12 md6 left center `}>
                         <SingleLeft img={item.img || item.cover} />
                     </div>
-                    <div className={`item xs12 sm12 md6 right `}>
+                    <div className={`item xs12 sm12 md6 right ${currentTheme ? "white" : "black"}`}>
                         <SingleRight item={item} />
                     </div>
                 </div>

@@ -15,7 +15,6 @@ export default function Home() {
     update()
   })
 
-
   return (
     <div className={`main height center ${currentTheme ? "light" : "dark"}`}>
       <h1>Welcomet to My Template</h1>
