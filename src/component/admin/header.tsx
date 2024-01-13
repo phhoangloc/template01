@@ -9,6 +9,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import { useRouter } from 'next/navigation';
 import { setUpdate } from '@/redux/reducer/UpdateReduce';
 import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
+import Image from 'next/image';
 const Header = () => {
     const router = useRouter()
     const [currentTheme, setCurrentTheme] = useState<boolean>(store.getState().theme)
@@ -43,7 +44,7 @@ const Header = () => {
                     <NotificationsIcon />
                     {currentTheme ? <DarkModeIcon onClick={() => store.dispatch(setTheme(!currentTheme))} /> : <LightModeIcon onClick={() => store.dispatch(setTheme(!currentTheme))} />}
                     {Object.keys(currentUser).length ?
-                        <img
+                        <Image
                             src={process.env.GOOGLE_URL + currentUser.infor.avata}
                             alt="Picture of the author"
                             width={50}

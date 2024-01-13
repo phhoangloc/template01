@@ -248,6 +248,7 @@
 }
 
 .admin .flexbox .edit .avata img {
+  width: auto;
   height: 100%;
 }
 

@@ -144,7 +144,7 @@ const Edit = ({ pages, currentslug }: Props) => {
                             imgPre ?
                                 <Image src={imgPre} width={100} height={100} alt="hello" /> :
                                 book && book.img ?
-                                    <img src={process.env.GOOGLE_URL + book.img} width={100} height={100} alt='image'
+                                    <Image src={process.env.GOOGLE_URL + book.img} width={100} height={100} alt='image'
                                     /> :
                                     <Image src={process.env.SERVER_URL + "img/bookcover/bookcoverDefault.jpeg"} width={100} height={100} alt='image' priority={true}
                                     />
@@ -282,7 +282,7 @@ const Edit = ({ pages, currentslug }: Props) => {
                             imgPre ?
                                 <img src={imgPre} width={100} height={100} alt="hello" /> :
                                 book && book.cover ?
-                                    <img src={process.env.GOOGLE_URL + book.cover} width={100} height={100} alt='img'
+                                    <Image src={process.env.GOOGLE_URL + book.cover} width={100} height={100} alt='img'
                                     /> :
                                     <img src={process.env.SERVER_URL + "img/bookcover/bookcoverDefault.jpeg"} width={100} height={100} alt='image'
                                     />
@@ -431,7 +431,7 @@ const Edit = ({ pages, currentslug }: Props) => {
             // users ?
             <div className="edit flex-wrap">
                 <div className="xs12 md6 item avata">
-                    <img src={imgPre || (users && users.infor && process.env.GOOGLE_URL + users.infor.avata)} />
+                    <Image src={imgPre || (users && users.infor && process.env.GOOGLE_URL + users.infor.avata)} width={100} height={100} alt='avata' />
                     <UploadButton icon={<UploadIcon />} func={(e) => getFile(e)} />
                 </div>
                 <div className="xs12 md6 item user">

@@ -5,7 +5,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'localhost',
+                hostname: 'admin.locand.jp',
                 port: '4000',
             },
         ],

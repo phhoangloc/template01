@@ -50,7 +50,7 @@ const Header = () => {
                 <div className="icons">
                     {currentTheme ? <DarkModeIcon onClick={() => store.dispatch(setTheme(!currentTheme))} /> : <LightModeIcon onClick={() => store.dispatch(setTheme(!currentTheme))} />}
                     {Object.keys(currentUser).length ?
-                        <img
+                        <Image
                             src={currentUser.infor && process.env.GOOGLE_URL + currentUser.infor.avata}
                             alt="Picture of the author"
                             width={50}
