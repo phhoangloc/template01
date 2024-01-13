@@ -11,7 +11,8 @@ const nextConfig = {
         ],
     },
     env: {
-        HOMEPAGE_URL_: "http://localhost:3000/",
+        // HOMEPAGE_URL_: "http://localhost:3000/",
+        HOMEPAGE_URL: "http://locand.jp/",
         // SERVER_URL: "https://localhost:4000/",
         SERVER_URL: "https://admin.locand.jp:4000/",
         GOOGLE_URL: "https://drive.google.com/uc?id=",
